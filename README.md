@@ -1,8 +1,6 @@
-# VR_Assignment_1_Shreyas_S_IMT2022078
-
 # OpenCV Image Processing and Stitching
 
-This repository contains three Python scripts utilizing OpenCV for image processing tasks:
+This repository contains three Python scripts utilizing OpenCV for image-processing tasks:
 
 1. **Canny Edge Detection with Trackbars**
 2. **Coin Detection and Counting**
