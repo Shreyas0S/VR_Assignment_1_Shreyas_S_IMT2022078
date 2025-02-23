@@ -50,8 +50,12 @@ def create_panorama(img1,img2):
         scrPts=np.float32([keypoints1[m.queryIdx].pt for m in goodMatches]).reshape(-1,1,2)
         dstPts=np.float32([keypoints2[m.trainIdx].pt for m in goodMatches]).reshape(-1,1,2)
         errorThreshold=5
+        #Showing the matches
+        img_matches=cv.drawMatches(img1,keypoints1,img2,keypoints2,goodMatches,None,flags=cv.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
+        cv.imshow("Matches",img_matches)
+        cv.waitKey(0)
+        cv.imwrite("../Images/Matches.png",img_matches)
         M,mask=cv.findHomography(dstPts,scrPts,cv.RANSAC,errorThreshold)
-
         h1,w1,_=img1.shape
         h2,w2,_=img2.shape
         #Warp the 1st image and combine it with the 2nd image to create the stitched image

@@ -16,25 +16,33 @@ def main():
     cv.waitKey(0)
     #Convert to Gray Scale
     gray_img=cv.cvtColor(img,cv.COLOR_BGR2GRAY)
-
     #Segment the coins
     cv.imshow("Gray Scale",gray_img)
     cv.waitKey(0)
+    cv.imwrite("../Images/Gray_Image.png",gray_img)
     threshold,segmented_image=cv.threshold(gray_img,127,255,cv.THRESH_BINARY_INV|cv.THRESH_OTSU)
-    kernel = np.ones((3,3),np.uint8)
+    cv.imshow("Segmented Image",segmented_image)
+    cv.waitKey(0)
+    cv.imwrite("../Images/Segmented_Image.png",segmented_image)
     #Opening operation for removing noise
+    kernel = np.ones((3,3),np.uint8)
     opening = cv.morphologyEx(segmented_image, cv.MORPH_OPEN, kernel)
-    kernel = np.ones((7,7),np.uint8)
+    cv.imshow("Opened Image",opening)
+    cv.waitKey(0)
+    cv.imwrite("../Images/Opened_Image.png",opening)
     #Closing operation for filling holes
+    kernel = np.ones((7,7),np.uint8)
     closing = cv.morphologyEx(opening, cv.MORPH_CLOSE, kernel)
     cv.imshow("Closed Image",closing)
     cv.waitKey(0)
+    cv.imwrite("../Images/Closed_Image.png",closing)
     cv.destroyAllWindows()
     #Count number of coins using function
     img_contours,contours=countNumberOfCoins(closing,img)
     #Display the image with contours
     cv.imshow("Contours",img_contours)
     cv.waitKey(0)
+    cv.imwrite("../Images/Contours_Image.png",img_contours)
     print("Number of Contours:",len(contours)) 
     print("Number of Coins:",len(contours))
     #Display each coin
